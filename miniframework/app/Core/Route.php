@@ -7,8 +7,7 @@ class Route{
 
     public function __construct(){   
         if(isset($_GET['url'])){
-            $url = explode('/', filter_var(trim($_GET['url']), FILTER_SANITIZE_URL));                                  
-            // die(var_dump($url));
+            $url = explode('/', filter_var(trim($_GET['url']), FILTER_SANITIZE_URL));                                              
         } else {
             require_once '../app/Controllers/' . $this->controller . '.php';
             $this->controller = new $this->controller;
@@ -37,7 +36,8 @@ class Route{
             unset($url[1]);
             $this->params = $url;            
         } else {
-            die('munyuk');
+            error();
+            // die('munyuk');
         }
         
         return call_user_func_array([$this->controller, $this->method], $this->params);
